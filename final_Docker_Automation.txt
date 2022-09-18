@@ -1,0 +1,65 @@
+#! /bin/bash
+
+
+echo -e "Menu:\n1.Pull image\n2.Run X Ubuntu\n3.Remove Image/Container\n4.Run W>
+read choice
+if [ $choice == "1" ]
+then
+        while true
+        echo -e "Choice image to install: php/ubuntu/centos\n"
+        read OS
+        do
+        if  [$OS== "centos" ] || [$OS== "php" ]  || [$OS== "ubuntu" ]
+        then
+           sudo docker pull $OS
+           break
+        else
+          echo -e "Enter good OS\n"
+        fi
+        done
+elif [ $choice == "2" ]
+then
+        echo -e "Enter how many Ubuntu containers you want?"
+        read num
+        for i in `seq $((num+0))`
+
+
+        do
+            sudo docker run -d ubuntu /bin/bash -c 'while true; do echo shay.dg>
+
+        done
+        sudo docker ps
+elif [ $choice == "3" ]
+then
+        echo -e "Do you want to delete images or containers?\n"
+        read DEL
+        if [ $DEL == "images" ]
+        then
+        while true
+        echo -e "Choice image to delete: php/ubuntu/centos\n"
+        read OS
+        do
+        if  [[$OS== "centos" ] || [$OS== "php" ]  || [$OS== "ubuntu"
+        then
+           sudo docker rmi $OS 2>dev/null
+           break
+        else
+                echo -e "Enter good OS\n"
+        fi
+        done
+
+        else
+        sudo docker ps
+        echo -e "Enter Containers ID:\n"
+        read CONT
+        sudo docker rm -f $CONT 2>/dev/null
+        fi
+elif [ $choice == "4" ]
+then
+        echo -e "Enter a port: \n"
+        read port
+        sudo docker run -d -p $port:8080 adejonge/helloworld
+        sudo docker ps | awk 'NR==2'
+
+
+fi
